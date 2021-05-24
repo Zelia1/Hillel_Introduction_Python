@@ -48,9 +48,9 @@ def average_weight_and_height() -> str:
 
     average_height_centimeters = sum(list_inches) / len(list_inches) * 2.54
     average_weight_kg = sum(list_pounds) / len(list_pounds) / 2.205
-    result = f"{str(average_height_centimeters)}, {str(average_weight_kg)}"
+    result_data = f"{str(average_height_centimeters)}, {str(average_weight_kg)}"
 
-    return result
+    return result_data
 
 
 def mans_in_space_now() -> str:
