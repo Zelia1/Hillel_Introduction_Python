@@ -41,5 +41,25 @@ def average_output():
 def mans_in_space():
     return mans_in_space_now()
 
+@app.route('/phone/create/')
+def phone_create():
+
+    query_params = request.args
+    value = int(query_params.get('value'))
+
+
+    import sqlite3
+
+    con = sqlite3.connect("./phones.db")
+    cur = con.cursor()
+    sql = f"""
+    INSERT INTO phones
+    values (null, {value})
+    """
+    cur.execute(sql)
+    con.commit()
+    con.close()
+    return 'Phone was Created'
+
 if __name__ == "__main__":
     app.run()
