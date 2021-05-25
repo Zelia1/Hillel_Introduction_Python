@@ -41,5 +41,72 @@ def average_output():
 def mans_in_space():
     return mans_in_space_now()
 
+@app.route('/phone/create/')
+def phone_create():
+
+    query_params = request.args
+    value = int(query_params.get('value'))
+
+
+    import sqlite3
+
+    con = sqlite3.connect("./phones.db")
+    cur = con.cursor()
+    sql = f"""
+    INSERT INTO phones
+    values (null, {value})
+    """
+    cur.execute(sql)
+    con.commit()
+    con.close()
+    return 'Phone was Created'
+
+@app.route('/phone/delete/')
+def phones_delete():
+
+    import sqlite3
+
+    con = sqlite3.connect("./phones.db")
+    cur = con.cursor()
+    sql = """
+    DELETE FROM phones;
+    """
+    cur.execute(sql)
+    con.commit()
+    con.close()
+    return 'All phones were deleted'
+
+@app.route('/phone/list/')
+def phone_list():
+
+    import sqlite3
+
+    con = sqlite3.connect("./phones.db")
+    cur = con.cursor()
+    sql = """
+    SELECT * FROM phones;
+    """
+    cur.execute(sql)
+    phones_list = cur.fetchall()
+    con.close()
+    return str(phones_list)
+
+@app.route('/phone/update/')
+def phones_update():
+    query_params = request.args
+    value = int(query_params.get('value'))
+
+    import sqlite3
+
+    con = sqlite3.connect("./phones.db")
+    cur = con.cursor()
+    sql = f"""
+    UPDATE phones SET value={value};
+    """
+    cur.execute(sql)
+    con.commit()
+    con.close()
+    return 'All phones were updated'
+
 if __name__ == "__main__":
     app.run()
